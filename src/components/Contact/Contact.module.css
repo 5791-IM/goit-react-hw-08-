@@ -1,0 +1,36 @@
+.card {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px 16px;
+  width: 320px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.card_name {
+  font-weight: bold;
+  color: #000;
+}
+
+.card_number {
+  margin: 4px 0 10px;
+  color: #000;
+}
+
+.card_btn {
+  align-self: flex-end;
+  padding: 6px 12px;
+  background-color: #1976d2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.card_btn:hover {
+  background-color: #155a9e;
+  color: white;
+}

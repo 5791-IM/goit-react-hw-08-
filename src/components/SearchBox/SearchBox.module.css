@@ -1,0 +1,29 @@
+.search {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 320px;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+}
+
+.input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #000;
+  transition: border 0.3s;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
