@@ -6,8 +6,9 @@ import * as Yup from "yup";
 
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
+import toast from "react-hot-toast";
 
-const ContactShema = Yup.object().shape({
+const ContactSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
@@ -26,9 +27,6 @@ const initialValues = {
 export default function ContactForm() {
   const dispatch = useDispatch();
 
-  // const nameFieldId = useId();
-  // const numberFieldId = useId();
-
   const handleSubmit = (values, actions) => {
     dispatch(
       addContact({
@@ -36,22 +34,29 @@ export default function ContactForm() {
         name: values.name,
         number: values.number,
       })
-    );
-    actions.resetForm();
+    )
+      .unwrap()
+      .then(() => {
+        toast.success("Contact added successfully");
+        actions.resetForm();
+      })
+      .catch(error => {
+        toast.error(`Failed to add contact:${error}`);
+      });
   };
 
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={ContactShema}
+      validationSchema={ContactSchema}
     >
       {({ errors, touched }) => (
         <Form>
           <Box display="flex" flexDirection="column" gap={2} width={300}>
             <Field
               as={TextField}
-              label="Имя"
+              label="Name"
               name="name"
               variant="outlined"
               error={touched.name && Boolean(errors.name)}
@@ -60,7 +65,7 @@ export default function ContactForm() {
 
             <Field
               as={TextField}
-              label="Телефон"
+              label="Phone"
               name="number"
               variant="outlined"
               error={touched.number && Boolean(errors.number)}
@@ -68,7 +73,7 @@ export default function ContactForm() {
             />
 
             <Button type="submit" variant="contained" color="primary">
-              Добавить контакт
+              Add contact
             </Button>
           </Box>
         </Form>
@@ -76,30 +81,3 @@ export default function ContactForm() {
     </Formik>
   );
 }
-
-//   return (
-//     <Formik
-//       initialValues={initialValues}
-//       onSubmit={handleSubmit}
-//       validationSchema={ContactShema}
-//     >
-//       <Form className={css.form}>
-//         <label className={css.label} htmlFor={nameFieldId}>
-//           Name
-//         </label>
-//         <Field className={css.input} type="text" name="name" />
-//         <ErrorMessage className={css.error} name="name" component="span" />
-
-//         <label className={css.label} htmlFor={numberFieldId}>
-//           Number
-//         </label>
-//         <Field className={css.input} type="text" name="number" />
-//         <ErrorMessage className={css.error} name="name" component="span" />
-
-//         <button className={css.btn} type="submit">
-//           Add contact
-//         </button>
-//       </Form>
-//     </Formik>
-//   );
-// }

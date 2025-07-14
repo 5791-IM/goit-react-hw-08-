@@ -12,6 +12,7 @@ import { Route, Routes } from "react-router-dom";
 import RestrictedRoute from "../RestrictedRoute.jsx";
 import PrivateRoute from "../PrivateRoute.jsx";
 import { fetchContacts } from "../../redux/contacts/operations.js";
+import { Toaster } from "react-hot-toast";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage.jsx"));
 const RegistrationPage = lazy(() => import("../../pages/RegistrationPage.jsx"));
@@ -37,6 +38,7 @@ export default function App() {
     <div>Refreshing user...</div>
   ) : (
     <Layout>
+      <Toaster position="top-right" />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<HomePage />} />
